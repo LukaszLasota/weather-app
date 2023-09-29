@@ -1,40 +1,89 @@
 <template>
-  <header>
-    <nav>
-      <h1>
-        <router-link to="/">Weather App</router-link>
-      </h1>
-      <ul>
-        <li>
-          <router-link to="/about">About</router-link>
-        </li>
-      </ul>
+  <!-- Header -->
+  <header id="header" class="bg-gray-700">
+    <nav class="container mx-auto flex justify-start items-center py-5 px-4">
+      <!-- App Name -->
+      <router-link
+        class="text-white font-bold uppercase text-2xl mr-4"
+        :to="{ name: 'home' }"
+        exact-active-class="no-active"
+      >
+        Weather App
+      </router-link>
+
+      <div class="flex flex-grow items-center">
+        <!-- Primary Navigation -->
+        <ul class="flex flex-row mt-1">
+          <!-- Navigation Links -->
+          <li>
+            <router-link class="px-2 text-white" :to="{ name: 'about' }">About</router-link>
+          </li>
+          <li v-if="!userStore.userLoggedIn">
+            <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal"
+              >Login / Register</a
+            >
+          </li>
+          <template v-else>
+            <li>
+              <a class="px-2 text-white" href="#" @click.prevent="signOut">Logout</a>
+            </li>
+          </template>
+        </ul>
+        <!-- <ul class="ml-auto">
+          <li>
+            <a class="px-2 text-white" href="#" @click.prevent="changeLocale">
+              {{ currentLocale }}
+            </a>
+          </li>
+        </ul> -->
+      </div>
     </nav>
+    <auth-modal></auth-modal>
   </header>
 </template>
+
+<script lang="ts">
+import { useUserStore } from '@/stores/user/index'
+import { useModalStore } from '@/stores/modal/index'
+// import { useRouter } from 'vue-router'
+import AuthModal from './AuthModal.vue'
+
+export default {
+  name: 'AppHeader',
+  components: {
+    AuthModal
+  },
+  computed: {
+    userStore() {
+      return useUserStore()
+    },
+    modalStore() {
+      return useModalStore()
+    }
+  },
+  methods: {
+    async signOut() {
+      await this.userStore.signOut()
+      if (this.$route.meta.requiresAuth) {
+        this.$router.push({ name: 'home' })
+      }
+    },
+    toggleAuthModal() {
+      this.modalStore.toggle()
+      console.log(44)
+    }
+  }
+}
+</script>
 
 <style scoped>
 header {
   width: 100%;
   height: 5rem;
-  background-color: #3d008d;
+  /* background-color: #3d008d; */
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-header a {
-  text-decoration: none;
-  color: #f391e3;
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border: 1px solid transparent;
-}
-
-a:active,
-a:hover,
-a.router-link-active {
-  border: 1px solid #f391e3;
 }
 
 h1 {
@@ -46,11 +95,11 @@ h1 a {
   margin: 0;
 }
 
-h1 a:hover,
+/* h1 a:hover,
 h1 a:active,
 h1 a.router-link-active {
   border-color: transparent;
-}
+} */
 
 header nav {
   width: 90%;
