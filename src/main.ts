@@ -5,8 +5,7 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
-import {auth} from './includes/firebase';
-
+import { auth } from './includes/firebase'
 
 const app = createApp(App)
 
