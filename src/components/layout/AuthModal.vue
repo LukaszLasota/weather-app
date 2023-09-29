@@ -21,7 +21,7 @@
             <p class="text-2xl font-bold">Your Account</p>
             <!-- Modal Close Button -->
             <div class="modal-close cursor-pointer z-50" @click="toggleModalVisibility">
-              csac
+              X
               <i class="fas fa-times"></i>
             </div>
           </div>
@@ -36,6 +36,7 @@
               >
             </li>
           </ul>
+          <login-form></login-form>
         </div>
       </div>
     </div>
@@ -44,8 +45,12 @@
 
 <script lang="ts">
 import { useModalStore } from '@/stores/modal/index'
+import LoginForm from './LoginForm.vue'
 export default {
   name: 'AuthModal',
+  components: {
+    LoginForm
+  },
   computed: {
     hiddenClass() {
       return this.modalStore.hiddenClass
