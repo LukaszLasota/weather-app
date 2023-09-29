@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     ...mapActions(useUserStore, ['authenticate']),
-    async login(values) {
+    async login(values: { email: string; password: string }) {
       this.login_show_alert = true
       this.login_in_submission = true
       this.login_alert_variant = 'bg-blue-500'
