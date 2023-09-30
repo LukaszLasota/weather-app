@@ -10,13 +10,24 @@ export const useUserStore = defineStore('user', {
     userLoggedIn: false
   }),
   actions: {
+    initialize() {
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          this.userLoggedIn = true
+        } else {
+          this.userLoggedIn = false
+        }
+      })
+    },
     async authenticate(values: { email: string; password: string }) {
       await auth.signInWithEmailAndPassword(values.email, values.password)
       this.userLoggedIn = true
+      console.log(this.userLoggedIn)
     },
     async signOut() {
       await auth.signOut()
       this.userLoggedIn = false
+      console.log(this.userLoggedIn)
     }
   }
 })

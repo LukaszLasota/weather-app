@@ -1,6 +1,7 @@
 import './assets/main.css'
 
 import { createApp } from 'vue'
+import type { App as VueApp } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
@@ -9,11 +10,22 @@ import { auth } from './includes/firebase'
 
 import VeeValidatePlugin from './includes/validation'
 
-const app = createApp(App)
+let app: VueApp | null = null
 
-app.use(createPinia())
-app.use(router)
-app.provide('auth', auth)
-app.use(VeeValidatePlugin)
+import { useUserStore } from '@/stores/user/index'
 
-app.mount('#app')
+auth.onAuthStateChanged(() => {
+  if (!app) {
+    app = createApp(App)
+
+    app.use(createPinia())
+    app.use(router)
+    app.provide('auth', auth)
+    app.use(VeeValidatePlugin)
+
+    const userStore = useUserStore()
+    userStore.initialize() //
+
+    app.mount('#app')
+  }
+})

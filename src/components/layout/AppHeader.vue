@@ -29,13 +29,6 @@
             </li>
           </template>
         </ul>
-        <!-- <ul class="ml-auto">
-          <li>
-            <a class="px-2 text-white" href="#" @click.prevent="changeLocale">
-              {{ currentLocale }}
-            </a>
-          </li>
-        </ul> -->
       </div>
     </nav>
     <auth-modal></auth-modal>
@@ -43,12 +36,12 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
 import { useUserStore } from '@/stores/user/index'
 import { useModalStore } from '@/stores/modal/index'
-// import { useRouter } from 'vue-router'
 import AuthModal from './AuthModal.vue'
 
-export default {
+export default defineComponent({
   name: 'AppHeader',
   components: {
     AuthModal
@@ -70,10 +63,9 @@ export default {
     },
     toggleAuthModal() {
       this.modalStore.toggle()
-      console.log(44)
     }
   }
-}
+})
 </script>
 
 <style scoped>
@@ -94,13 +86,6 @@ h1 a {
   color: white;
   margin: 0;
 }
-
-/* h1 a:hover,
-h1 a:active,
-h1 a.router-link-active {
-  border-color: transparent;
-} */
-
 header nav {
   width: 90%;
   margin: auto;

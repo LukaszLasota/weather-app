@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { mapActions } from 'pinia'
+// import { mapActions } from 'pinia'
 import { useUserStore } from '@/stores/user/index'
 
 export default {
@@ -57,8 +57,11 @@ export default {
       login_alert_msg: 'Please wait! We are logging you in.'
     }
   },
+  mounted() {
+    const userStore = useUserStore()
+    console.log('User Logged In after reload:', userStore.userLoggedIn)
+  },
   methods: {
-    ...mapActions(useUserStore, ['authenticate']),
     async login(values: { email: string; password: string }) {
       this.login_show_alert = true
       this.login_in_submission = true
@@ -66,7 +69,8 @@ export default {
       this.login_alert_msg = 'Please wait! We are logging you in.'
 
       try {
-        await this.authenticate(values)
+        const userStore = useUserStore() // Użyj metody useUserStore bezpośrednio
+        await userStore.authenticate(values) // Wywołaj akcję authenticate bezpośrednio
       } catch (error) {
         this.login_in_submission = false
         this.login_alert_variant = 'bg-red-500'
