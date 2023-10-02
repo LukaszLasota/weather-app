@@ -3,7 +3,7 @@
     <div class="bg-white p-6 rounded shadow-md w-2/4">
       <input
         v-model.trim="cityName"
-        placeholder="Enter city name"
+        placeholder="Wpisz nazwę miasta"
         class="w-full p-2 border rounded mb-2"
         @keyup.enter="searchCity"
       />
@@ -11,7 +11,7 @@
         @click="searchCity"
         class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
       >
-        Search
+        Szukaj
       </button>
       <!-- Dodaj komunikat o błędzie -->
       <div v-if="errorMessage" class="mt-2 text-red-500">
@@ -42,7 +42,7 @@ export default defineComponent({
       if (
         weatherStore.userCities.map((city: string) => city.toLowerCase()).includes(cityNameLower)
       ) {
-        this.errorMessage = 'City is already on the list'
+        this.errorMessage = 'To miasto zostało już dodane'
         return
       }
 
@@ -57,7 +57,7 @@ export default defineComponent({
         this.errorMessage = ''
       } catch (error) {
         console.error('Error searching city:', error)
-        this.errorMessage = 'City not found'
+        this.errorMessage = 'Nie znaleziono miasta'
       }
     }
   }

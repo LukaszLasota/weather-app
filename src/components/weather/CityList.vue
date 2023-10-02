@@ -14,10 +14,16 @@
         </div>
         <button
           @click="removeCity(city)"
-          class="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 self-stretch"
+          class="mt-5 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 self-stretch"
         >
           Usuń
         </button>
+        <router-link
+          :to="{ name: 'cityDetail', params: { cityName: city } }"
+          class="inline-block mt-5 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-center"
+        >
+          Zobacz więcej szczegółów
+        </router-link>
       </li>
     </ul>
   </div>
