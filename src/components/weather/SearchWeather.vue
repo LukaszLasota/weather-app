@@ -2,7 +2,7 @@
   <div class="flex items-center justify-center w-full p-10">
     <div class="bg-white p-6 rounded shadow-md w-2/4">
       <input
-        v-model="cityName"
+        v-model.trim="cityName"
         placeholder="Enter city name"
         class="w-full p-2 border rounded mb-2"
       />
@@ -12,6 +12,10 @@
       >
         Search
       </button>
+      <!-- Dodaj komunikat o błędzie -->
+      <div v-if="errorMessage" class="mt-2 text-red-500">
+        {{ errorMessage }}
+      </div>
     </div>
   </div>
 </template>
@@ -19,17 +23,18 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import axios from 'axios'
-import { useWeatherStore } from '@/stores/weather' // Importuj useWeatherStore
+import { useWeatherStore } from '@/stores/weather'
 
 export default defineComponent({
   data() {
     return {
-      cityName: ''
+      cityName: '',
+      errorMessage: ''
     }
   },
   methods: {
     async searchCity() {
-      const weatherStore = useWeatherStore() // Użyj useWeatherStore
+      const weatherStore = useWeatherStore()
       try {
         const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather`, {
           params: {
@@ -37,9 +42,11 @@ export default defineComponent({
             appid: 'b23125a077023719bae32ac6ea50d37f'
           }
         })
-        weatherStore.addUserCity(response.data.name) // Użyj metody addUserCity zamiast addCity
+        weatherStore.addUserCity(response.data.name)
+        this.errorMessage = '' // Wyczyść komunikat o błędzie po udanym wyszukiwaniu
       } catch (error) {
         console.error('Error searching city:', error)
+        this.errorMessage = 'City not found' // Ustaw komunikat o błędzie, gdy miasto nie zostało znalezione
       }
     }
   }
