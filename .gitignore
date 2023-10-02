@@ -28,4 +28,4 @@ coverage
 *.sw?
 
 src/includes/firebase.ts
-
+.env
