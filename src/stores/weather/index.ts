@@ -36,7 +36,7 @@ export const useWeatherStore = defineStore('weather', {
       }
     },
     removeUserCity(city: string) {
-      this.userCities = this.userCities.filter((c) => c !== city)
+      this.userCities = this.userCities.filter((c: string) => c !== city)
       localStorage.setItem('userCities', JSON.stringify(this.userCities))
       delete this.cityWeatherData[city]
     }
