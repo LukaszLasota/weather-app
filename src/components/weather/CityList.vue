@@ -36,10 +36,10 @@ export default defineComponent({
   },
   computed: {
     userCities() {
-      return this.weatherStore.userCities // bezpośrednio zwracamy wartość
+      return this.weatherStore.userCities
     },
     cityWeatherData() {
-      return this.weatherStore.cityWeatherData // bezpośrednio zwracamy wartość
+      return this.weatherStore.cityWeatherData
     }
   },
   methods: {

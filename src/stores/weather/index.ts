@@ -29,9 +29,11 @@ export const useWeatherStore = defineStore('weather', {
       }
     },
     addUserCity(city: string) {
-      this.userCities.push(city)
-      localStorage.setItem('userCities', JSON.stringify(this.userCities))
-      this.fetchWeatherDataForCities()
+      if (!this.userCities.includes(city)) {
+        this.userCities.push(city)
+        localStorage.setItem('userCities', JSON.stringify(this.userCities))
+        this.fetchWeatherDataForCities()
+      }
     },
     removeUserCity(city: string) {
       this.userCities = this.userCities.filter((c) => c !== city)

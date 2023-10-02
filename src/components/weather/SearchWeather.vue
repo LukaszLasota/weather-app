@@ -5,6 +5,7 @@
         v-model.trim="cityName"
         placeholder="Enter city name"
         class="w-full p-2 border rounded mb-2"
+        @keyup.enter="searchCity"
       />
       <button
         @click="searchCity"
@@ -35,6 +36,16 @@ export default defineComponent({
   methods: {
     async searchCity() {
       const weatherStore = useWeatherStore()
+
+      // Sprawdź, czy miasto jest już na liście
+      const cityNameLower = this.cityName.trim().toLowerCase()
+      if (
+        weatherStore.userCities.map((city: string) => city.toLowerCase()).includes(cityNameLower)
+      ) {
+        this.errorMessage = 'City is already on the list'
+        return
+      }
+
       try {
         const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather`, {
           params: {
@@ -43,10 +54,10 @@ export default defineComponent({
           }
         })
         weatherStore.addUserCity(response.data.name)
-        this.errorMessage = '' // Wyczyść komunikat o błędzie po udanym wyszukiwaniu
+        this.errorMessage = ''
       } catch (error) {
         console.error('Error searching city:', error)
-        this.errorMessage = 'City not found' // Ustaw komunikat o błędzie, gdy miasto nie zostało znalezione
+        this.errorMessage = 'City not found'
       }
     }
   }
