@@ -28,24 +28,27 @@ import { defineComponent, computed } from 'vue'
 import { useWeatherStore } from '@/stores/weather/index'
 
 export default defineComponent({
-  setup() {
+  data() {
     const weatherStore = useWeatherStore()
-
-    const userCities = computed(() => weatherStore.userCities)
-    const cityWeatherData = computed(() => weatherStore.cityWeatherData)
-
-    const removeCity = (city: string) => {
-      weatherStore.removeUserCity(city)
-    }
-
     return {
-      userCities,
-      cityWeatherData,
-      removeCity
+      weatherStore
+    }
+  },
+  computed: {
+    userCities() {
+      return this.weatherStore.userCities // bezpośrednio zwracamy wartość
+    },
+    cityWeatherData() {
+      return this.weatherStore.cityWeatherData // bezpośrednio zwracamy wartość
+    }
+  },
+  methods: {
+    removeCity(city: string) {
+      this.weatherStore.removeUserCity(city)
     }
   },
   mounted() {
-    useWeatherStore().fetchWeatherDataForCities()
+    this.weatherStore.fetchWeatherDataForCities()
   }
 })
 </script>
