@@ -26,7 +26,7 @@ export const useWeatherStore = defineStore('weather', {
           const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather`, {
             params: {
               q: city,
-              appid: 'b23125a077023719bae32ac6ea50d37f',
+              appid: import.meta.env.VITE_APP_OPENWEATHER_API_KEY,
               units: 'metric'
             }
           })
@@ -44,7 +44,7 @@ export const useWeatherStore = defineStore('weather', {
         const response = await axios.get(`https://api.openweathermap.org/data/2.5/forecast`, {
           params: {
             q: city,
-            appid: 'b23125a077023719bae32ac6ea50d37f',
+            appid: import.meta.env.VITE_APP_OPENWEATHER_API_KEY,
             units: 'metric'
           }
         })

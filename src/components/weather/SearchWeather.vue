@@ -50,7 +50,7 @@ export default defineComponent({
         const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather`, {
           params: {
             q: this.cityName,
-            appid: 'b23125a077023719bae32ac6ea50d37f'
+            appid: import.meta.env.VITE_APP_OPENWEATHER_API_KEY
           }
         })
         weatherStore.addUserCity(response.data.name)
