@@ -1,13 +1,23 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
+export interface WeatherData {
+  temperature: number | null
+  humidity?: number
+  precipitation?: string | null
+  country: string | null
+  forecast?: {
+    date: string
+    temperature: number
+    humidity: number
+    precipitation: string | null
+  }[]
+}
+
 export const useWeatherStore = defineStore('weather', {
   state: () => ({
     userCities: JSON.parse(localStorage.getItem('userCities') || '[]'),
-    cityWeatherData: {} as Record<
-      string,
-      { temperature: number; humidity: number; precipitation: string | null }
-    >
+    cityWeatherData: {} as Record<string, WeatherData>
   }),
   actions: {
     async fetchWeatherDataForCities() {
@@ -21,11 +31,44 @@ export const useWeatherStore = defineStore('weather', {
             }
           })
           const { temp: temperature, humidity } = response.data.main
+          const country = response.data.sys.country // Dodaj tę linię
           const precipitation = response.data.rain ? response.data.rain['1h'] : 'Brak'
-          this.cityWeatherData[city] = { temperature, humidity, precipitation }
+          this.cityWeatherData[city] = { temperature, humidity, precipitation, country } // Dodaj country tutaj
         } catch (error) {
           console.error('Error fetching weather data for city:', city, error)
         }
+      }
+    },
+    async fetchWeeklyWeatherDataForCity(city: string) {
+      try {
+        const response = await axios.get(`https://api.openweathermap.org/data/2.5/forecast`, {
+          params: {
+            q: city,
+            appid: 'b23125a077023719bae32ac6ea50d37f',
+            units: 'metric'
+          }
+        })
+        const forecastData = response.data.list.map((forecast: any) => ({
+          temperature: forecast.main.temp,
+          humidity: forecast.main.humidity,
+          precipitation: forecast.rain ? forecast.rain['3h'] : 'Brak',
+          date: forecast.dt_txt
+        }))
+        if (this.cityWeatherData[city]) {
+          // Aktualizuj istniejące dane miasta, dodając prognozę
+          this.cityWeatherData[city].forecast = forecastData
+        } else {
+          // Utwórz nowe dane dla miasta, jeśli jeszcze nie istnieją
+          this.cityWeatherData[city] = {
+            temperature: 0,
+            humidity: 0,
+            precipitation: null,
+            country: '',
+            forecast: forecastData
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching weekly weather data for city:', city, error)
       }
     },
     addUserCity(city: string) {
