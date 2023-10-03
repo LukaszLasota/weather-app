@@ -14,12 +14,15 @@ let app: VueApp | null = null
 
 import { useUserStore } from '@/stores/user/index'
 
+import BaseCard from './components/ui/BaseCard.vue'
+
 auth.onAuthStateChanged(() => {
   if (!app) {
     app = createApp(App)
 
     app.use(createPinia())
     app.use(router)
+    app.component('base-card', BaseCard)
     app.provide('auth', auth)
     app.use(VeeValidatePlugin)
 

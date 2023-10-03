@@ -31,9 +31,9 @@ export const useWeatherStore = defineStore('weather', {
             }
           })
           const { temp: temperature, humidity } = response.data.main
-          const country = response.data.sys.country // Dodaj tę linię
+          const country = response.data.sys.country
           const precipitation = response.data.rain ? response.data.rain['1h'] : 'Brak'
-          this.cityWeatherData[city] = { temperature, humidity, precipitation, country } // Dodaj country tutaj
+          this.cityWeatherData[city] = { temperature, humidity, precipitation, country }
         } catch (error) {
           console.error('Error fetching weather data for city:', city, error)
         }
