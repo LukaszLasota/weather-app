@@ -1,4 +1,4 @@
-# Aplikacja Pogodowa
+# Wetaher App
 
 Aplikacja pogodowa umożliwiająca sprawdzanie aktualnych warunków pogodowych oraz prognozy na nadchodzące dni dla różnych lokalizacji na świecie. Zbudowana przy użyciu Vue 3 i TypeScript.
 
