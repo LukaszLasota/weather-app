@@ -22,11 +22,6 @@ Aplikacja pogodowa umożliwiająca sprawdzanie aktualnych warunków pogodowych o
 - Prognoza na kilka dni do przodu
 - Szczegółowe informacje o prognozowanych warunkach pogodowych
 
-### Ustawienia
-
-- Wybór jednostek miar
-- Zmiana języka aplikacji
-
 ## Technologie
 
 - Vue 3
