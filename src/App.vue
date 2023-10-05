@@ -1,18 +1,17 @@
 <template>
-  <app-header></app-header>
+  <section class="bg-blue-100">
+    <app-header></app-header>
 
-  <router-view></router-view>
+    <router-view></router-view>
+  </section>
 </template>
 <script lang="ts">
-import AppHeader from './components/layout/AppHeader.vue';
+import AppHeader from './components/layout/AppHeader.vue'
 
-export default{
+export default {
   components: {
     AppHeader
   }
 }
-
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>
