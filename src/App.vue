@@ -1,7 +1,6 @@
 <template>
   <section class="bg-blue-100">
     <app-header></app-header>
-
     <router-view></router-view>
   </section>
 </template>

@@ -1,8 +1,10 @@
 <template>
-  <main class="container mx-auto flex flex-wrap justify-start items-center py-5 px-4">
-    <div class="in-h-screen flex items-center justify-center w-full" v-if="!userStore.userLoggedIn">
-      <h2 class="font-bold text-xl mb-1 text-center">You must be logged in to select city</h2>
-    </div>
+  <main class="container mx-auto flex flex-wrap justify-start items-start py-5 px-4 min-h-screen">
+    <base-card v-if="!userStore.userLoggedIn">
+      <div class="in-h-screen flex items-center justify-center items-start w-full p-4">
+        <h2 class="font-bold text-xl mb-1 text-center">Zaloguj się żeby dodać pogodę dla miast</h2>
+      </div>
+    </base-card>
     <template v-else>
       <div class="flex flex-wrap items-center justify-center w-full">
         <h2 class="font-bold text-xl mb-1 text-center">
