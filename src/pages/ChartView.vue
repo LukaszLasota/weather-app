@@ -48,7 +48,8 @@ import { useWeatherStore } from '@/stores/weather'
 export default defineComponent({
   data() {
     return {
-      cityName: this.$route.params.cityName
+      cityName: this.$route.params.cityName,
+      intervalId: null as number | null 
     }
   },
   computed: {
@@ -67,8 +68,21 @@ export default defineComponent({
     }
   },
   mounted() {
-    const weatherStore = useWeatherStore()
-    weatherStore.fetchWeeklyWeatherDataForCity(this.cityName.toString())
+  const weatherStore = useWeatherStore()
+  
+  // Sprawdzamy, czy cityName jest stringiem
+  if (typeof this.cityName === 'string') {
+    weatherStore.fetchWeeklyWeatherDataForCity(this.cityName)
+    this.intervalId = weatherStore.startSingleCityDataRefresh(this.cityName)
+  } else {
+    // obsłuż sytuację, gdy cityName nie jest stringiem, np. wyświetl błąd lub coś innego
+    console.error('cityName is not a string:', this.cityName)
   }
+},
+beforeUnmount() {
+  if (this.intervalId !== null) {
+    clearInterval(this.intervalId)
+  }
+}
 })
 </script>

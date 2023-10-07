@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
+const REFRESH_INTERVAL = 30 * 60 * 1000;
+
 export interface WeatherData {
   temperature: number | null
   humidity?: number
@@ -39,6 +41,12 @@ export const useWeatherStore = defineStore('weather', {
         }
       }
     },
+    startDataRefreshInterval() {
+      this.fetchWeatherDataForCities();
+      setInterval(() => {
+        this.fetchWeatherDataForCities();
+      }, REFRESH_INTERVAL); 
+    },
     async fetchWeeklyWeatherDataForCity(city: string) {
       try {
         const response = await axios.get(`https://api.openweathermap.org/data/2.5/forecast`, {
@@ -70,6 +78,13 @@ export const useWeatherStore = defineStore('weather', {
       } catch (error) {
         console.error('Error fetching weekly weather data for city:', city, error)
       }
+    },
+    startSingleCityDataRefresh(city: string) {
+      this.fetchWeeklyWeatherDataForCity(city);
+      const intervalId = setInterval(() => {
+        this.fetchWeeklyWeatherDataForCity(city);
+      }, REFRESH_INTERVAL); 
+      return intervalId;
     },
     addUserCity(city: string) {
       if (!this.userCities.includes(city)) {

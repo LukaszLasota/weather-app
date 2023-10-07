@@ -60,7 +60,9 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.weatherStore.fetchWeatherDataForCities()
+    // this.weatherStore.fetchWeatherDataForCities()
+    const weatherStore = useWeatherStore()
+    weatherStore.startDataRefreshInterval()
   }
 })
 </script>
