@@ -9,6 +9,7 @@ Aplikacja pogodowa umożliwiająca sprawdzanie aktualnych warunków pogodowych o
 - [Instalacja](#instalacja)
 - [Uruchomienie](#uruchomienie)
 - [Werjsa live](#wersja-live)
+- [Login do aplikacji](#login-aplikacja)
 
 ## Funkcje
 
@@ -49,3 +50,9 @@ npm run dev
 ## Wersja Live
 
 https://weather-app.lukaszla.vot.pl/
+
+
+## Login aplikacja
+
+test@test.pl
+TestTest
