@@ -1,6 +1,6 @@
 <template>
-  <div class="flex items-center justify-center w-full p-10">
-    <div class="bg-white p-6 rounded shadow-md w-2/4 shadow-2xl">
+  <div class="flex items-center justify-center p-1 pt-5 md:p-10 w-full md:w-2/4 lg:w-1/2 ">
+    <div class="bg-white p-6 rounded shadow-md w-full shadow-2xl">
       <input
         v-model.trim="cityName"
         placeholder="Wpisz nazwę miasta"

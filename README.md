@@ -1,6 +1,6 @@
 # Wetaher App
 
-Aplikacja pogodowa umożliwiająca sprawdzanie aktualnych warunków pogodowych oraz prognozy na nadchodzące dni dla różnych lokalizacji na świecie. Zbudowana przy użyciu Vue 3 i TypeScript.
+Aplikacja pogodowa umożliwiająca sprawdzanie aktualnych warunków pogodowych oraz prognozy na nadchodzące dni dla różnych lokalizacji na świecie. Zbudowana przy użyciu Vue 3, TypeScript, Pini, Firebase oraz Tailwinda.
 
 ## Spis Treści
 
@@ -28,6 +28,8 @@ Aplikacja pogodowa umożliwiająca sprawdzanie aktualnych warunków pogodowych o
 - Vue 3
 - TypeScript
 - Pinia
+- Tailwind
+- Firebase
 
 ## Instalacja
 
