@@ -7,7 +7,7 @@
     </base-card>
     <template v-else>
       <div class="flex flex-wrap items-center justify-center w-full">
-        <h2 class="font-bold text-xl mb-1 text-center">
+        <h2 class="font-bold text-xl mb-1 text-center w-full p-4">
           Jestes zalogowany, dodaj miasta dla których chcesz sledzić prognozę pogody
         </h2>
         <search-weather></search-weather>

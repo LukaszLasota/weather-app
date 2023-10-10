@@ -1,7 +1,6 @@
 <template>
   <header id="header" class="bg-gray-700">
-    <nav class="container mx-auto flex justify-between items-center py-5 px-4">
-      
+    <nav class="container mx-auto flex flex-wrap justify-between items-center py-5 px-4">
       <!-- App Name -->
       <router-link
         class="text-white font-bold uppercase text-2xl"
@@ -11,32 +10,35 @@
         Weather App
       </router-link>
 
-    <!-- Hamburger Menu Button -->
-    <button @click="toggleMenu" class="hamburger lg:hidden px-2 py-1">
-      <div class="hamburger-box"></div>
-    </button>
+      <!-- Hamburger Menu Button -->
+      <button @click="toggleMenu" class="hamburger lg:hidden p-3 flex">
+        <div class="hamburger-box"></div>
+      </button>
 
-    <!-- Navigation Links -->
-    <div :class="{ 'hidden': !isMenuOpen, 'flex': isMenuOpen }" class="flex-col lg:flex lg:flex-row lg:items-center lg:w-auto w-full" id="nav-content">
-      
-      <ul class="flex flex-col lg:flex-row mt-1">
-        
-        <li class="lg:mb-0 mb-2">
-          <router-link class="px-2 text-white" :to="{ name: 'about' }">O aplikacji</router-link>
-        </li>
-        
-        <li v-if="!userStore.userLoggedIn" class="lg:mb-0 mb-2">
-          <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal">Zaloguj się</a>
-        </li>
-        
-        <li v-else class="lg:mb-0 mb-2">
-          <a class="px-2 text-white" href="#" @click.prevent="signOut">Wyloguj</a>
-        </li>
-      </ul>
-    </div>
-      
+      <!-- Navigation Links -->
+      <div
+        :class="{ hidden: !isMenuOpen, flex: isMenuOpen }"
+        class="flex-col lg:flex lg:flex-row lg:items-center lg:w-auto w-full"
+        id="nav-content"
+      >
+        <ul class="flex flex-wrap flex-col lg:flex-row mt-2 text-center">
+          <li class="lg:mb-0 mb-2">
+            <router-link class="px-2 text-white" :to="{ name: 'about' }">O aplikacji</router-link>
+          </li>
+
+          <li v-if="!userStore.userLoggedIn" class="lg:mb-0 mb-2">
+            <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal">Zaloguj się</a>
+          </li>
+
+          <li v-else class="lg:mb-0 mb-2">
+            <a class="px-2 text-white" href="#" @click.prevent="signOut">Wyloguj</a>
+          </li>
+        </ul>
+      </div>
     </nav>
-    <auth-modal></auth-modal>
+    <teleport to="body">
+      <auth-modal></auth-modal>
+    </teleport>
   </header>
 </template>
 
@@ -53,8 +55,8 @@ export default defineComponent({
   },
   data() {
     return {
-      isMenuOpen: false,
-    };
+      isMenuOpen: false
+    }
   },
   computed: {
     userStore() {
@@ -66,7 +68,7 @@ export default defineComponent({
   },
   methods: {
     toggleMenu() {
-      this.isMenuOpen = !this.isMenuOpen;
+      this.isMenuOpen = !this.isMenuOpen
     },
     async signOut() {
       await this.userStore.signOut()
@@ -102,7 +104,7 @@ h1 a {
 header nav {
   width: 90%;
   margin: auto;
-  display: flex;
+
   justify-content: space-between;
   align-items: center;
 }
@@ -111,9 +113,6 @@ header ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
 }
 
@@ -132,10 +131,6 @@ li {
 }
 
 @media (max-width: 767px) {
-  nav {
-    flex-direction: column;
-  }
-
   #nav-content.flex {
     align-items: center;
     width: 100%;
@@ -143,16 +138,11 @@ li {
   }
 }
 
-
-
 .hamburger {
   cursor: pointer;
   position: relative;
-  width: 50px;
-  height: 25px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  width: 65px;
+  height: 45px;
 }
 @media (min-width: 768px) {
   .hamburger {
@@ -163,7 +153,7 @@ li {
 .hamburger-box,
 .hamburger-box::before,
 .hamburger-box::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0; /* Asegurate de que los pseudoelementos comiencen desde el borde izquierdo del contenedor */
   width: 100%;
@@ -178,13 +168,13 @@ li {
 }
 
 .hamburger-box::before {
-  content: "";
+  content: '';
   position: absolute;
   top: -10px; /* Distancia desde la línea principal al pseudoelemento superior */
 }
 
 .hamburger-box::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: -10px; /* Distancia desde la línea principal al pseudoelemento inferior */
 }

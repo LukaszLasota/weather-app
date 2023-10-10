@@ -38,26 +38,27 @@ export default {
     configure({
       generateMessage: (ctx) => {
         const messages = {
-          required: `The field ${ctx.field} is required.`,
-          min: `The field ${ctx.field} is too short.`,
-          max: `The field ${ctx.field} is too long.`,
-          alpha_spaces: `The field ${ctx.field} may only contain alphabetical characters and spaces.`,
-          email: `The field ${ctx.field} must be a valid email.`,
-          min_value: `The field ${ctx.field} is too low.`,
-          max_value: `The field ${ctx.field} is too high.`,
-          excluded: `You are not allowed to use this value for the field ${ctx.field}.`,
-          passwords_mismatch: "The passwords don't match."
+          required: `To pole ${ctx.field} jest wymagane.`,
+          min: `To pole ${ctx.field} ma za mało znaków.`,
+          max: `To pole ${ctx.field} ma za dużo znaków.`,
+          alpha_spaces: `To pole ${ctx.field} może zawierać tylko znaki alfabetu i spacje.`,
+          email: `To pole ${ctx.field} musi być prawidłowym adresem e-mail.`,
+          min_value: `To pole ${ctx.field} ma zbyt mała wartośc.`,
+          max_value: `To pole ${ctx.field} ma za dużą wartość.`,
+          excluded: `Nie wolno używać tej wartości dla pola ${ctx.field}.`,
+          passwords_mismatch: 'Hasła nie pasują'
         }
 
         // Zwróć odpowiednią wiadomość błędu
         // Sprawdzanie, czy ctx.rule jest zdefiniowany
         if (ctx.rule) {
           return (
-            messages[ctx.rule.name as keyof typeof messages] ?? `The field ${ctx.field} is invalid.`
+            messages[ctx.rule.name as keyof typeof messages] ??
+            `Pole ${ctx.field} jest nieprawidłowe.`
           )
         } else {
           // Zwracanie domyślnej wiadomości błędu, gdy ctx.rule jest undefined
-          return `The field ${ctx.field} is invalid.`
+          return `Pole ${ctx.field} jest nieprawidłowe.`
         }
       },
       validateOnBlur: true,

@@ -13,4 +13,8 @@ export default {
   }
 }
 </script>
-<style scoped></style>
+<style>
+body {
+  font-family: 'Roboto', sans-serif;
+}
+</style>

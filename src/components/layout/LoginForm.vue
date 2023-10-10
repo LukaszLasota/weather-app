@@ -54,19 +54,19 @@ export default {
       login_in_submission: false,
       login_show_alert: false,
       login_alert_variant: 'bg-blue-500',
-      login_alert_msg: 'Please wait! We are logging you in.'
+      login_alert_msg: 'Proszę czekać! Trwa logowanie.'
     }
   },
   mounted() {
     const userStore = useUserStore()
-    console.log('User Logged In after reload:', userStore.userLoggedIn)
+    console.log('Użytkownik zalogowany po przeładowaniu:', userStore.userLoggedIn)
   },
   methods: {
     async login(values: { email: string; password: string }) {
       this.login_show_alert = true
       this.login_in_submission = true
       this.login_alert_variant = 'bg-blue-500'
-      this.login_alert_msg = 'Please wait! We are logging you in.'
+      this.login_alert_msg = 'Proszę czekać! Trwa logowanie.'
 
       try {
         const userStore = useUserStore() // Użyj metody useUserStore bezpośrednio
@@ -74,12 +74,12 @@ export default {
       } catch (error) {
         this.login_in_submission = false
         this.login_alert_variant = 'bg-red-500'
-        this.login_alert_msg = 'Invalid login details.'
+        this.login_alert_msg = 'Nieprawidłowe dane logowania'
         return
       }
 
       this.login_alert_variant = 'bg-green-500'
-      this.login_alert_msg = 'Success! You are now logged in.'
+      this.login_alert_msg = 'Sukces! Jesteś teraz zalogowany.'
       window.location.reload()
     }
   }
