@@ -40,6 +40,22 @@ git clone https://github.com/LukaszLasota/weather-app
 
 cd weather-app
 
+# Utworzenie pliku .env ze zmiennymi środowiskowymi:
+
+Z kluczem API do wygenerowania na stronie https://openweathermap.org/api
+
+VITE_APP_OPENWEATHER_API_KEY=TU-NASZ-KLUCZ-API
+
+Z danymi z naszego panelu firebase:
+
+VITE_APP_API_KEY=DANE-Z-PANELU-FIREBASE
+VITE_APP_AUTH_DOMAIN=DANE-Z-PANELU-FIREBASE
+VITE_APP_PROJECT_ID=DANE-Z-PANELU-FIREBASE
+VITE_APP_STORAGE_BUCKET=DANE-Z-PANELU-FIREBASE
+VITE_APP_MESSAGING_SENDER_ID=DANE-Z-PANELU-FIREBASE
+VITE_APP_APP_ID=DANE-Z-PANELU-FIREBASE
+VITE_APP_MEASUREMENT_ID=DANE-Z-PANELU-FIREBASE
+
 # Instalacja zależności
 
 npm install
@@ -52,7 +68,7 @@ npm run dev
 
 https://weather-app.lukaszla.vot.pl/
 
-## Login aplikacja
+## Testowy login do naszej aplikacja
 
 test@test.pl
 TestTest

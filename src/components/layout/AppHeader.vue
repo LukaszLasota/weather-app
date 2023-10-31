@@ -86,7 +86,6 @@ export default defineComponent({
 <style scoped>
 header {
   width: 100%;
-  /* height: 5rem; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -155,7 +154,7 @@ li {
 .hamburger-box::after {
   content: '';
   position: absolute;
-  left: 0; /* Asegurate de que los pseudoelementos comiencen desde el borde izquierdo del contenedor */
+  left: 0;
   width: 100%;
   height: 3px;
   background-color: white;
@@ -163,33 +162,33 @@ li {
 }
 
 .hamburger-box {
-  position: relative; /* Cambié a relative para que actúe como contenedor para los pseudoelementos */
-  top: 9px; /* Ajustado para centrar la línea principal */
+  position: relative;
+  top: 9px;
 }
 
 .hamburger-box::before {
   content: '';
   position: absolute;
-  top: -10px; /* Distancia desde la línea principal al pseudoelemento superior */
+  top: -10px;
 }
 
 .hamburger-box::after {
   content: '';
   position: absolute;
-  bottom: -10px; /* Distancia desde la línea principal al pseudoelemento inferior */
+  bottom: -10px;
 }
 
 .hamburger.active .hamburger-box {
-  background-color: transparent; /* Hace que la línea principal desaparezca cuando está activa */
+  background-color: transparent;
 }
 
 .hamburger.active .hamburger-box::before {
   transform: rotate(45deg);
-  top: 0; /* Centra el pseudoelemento girado respecto al antiguo lugar de la línea principal */
+  top: 0;
 }
 
 .hamburger.active .hamburger-box::after {
   transform: rotate(-45deg);
-  top: 0; /* Centra el pseudoelemento girado respecto al antiguo lugar de la línea principal */
+  top: 0;
 }
 </style>
