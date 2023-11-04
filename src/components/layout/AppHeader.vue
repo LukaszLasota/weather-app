@@ -1,40 +1,40 @@
 <template>
-  <header id="header" class="bg-gray-700">
-    <nav class="container mx-auto flex flex-wrap justify-between items-center py-5 px-4">
-      <!-- App Name -->
-      <router-link
-        class="text-white font-bold uppercase text-2xl"
-        :to="{ name: 'home' }"
-        exact-active-class="no-active"
-      >
-        Weather App
-      </router-link>
+  <header class="header">
+    <nav class="header__nav">
+      <h1 class="header__title">
+        <router-link
+          :to="{ name: 'home' }"
+          class="header__link"
+          exact-active-class="header__link--active"
+        >
+          Weather App
+        </router-link>
+      </h1>
 
-      <!-- Hamburger Menu Button -->
-      <button @click="toggleMenu" class="hamburger lg:hidden p-3 flex">
-        <div class="hamburger-box"></div>
+      <button
+        class="hamburger"
+        @click="toggleMenu"
+        :class="{ 'hamburger--active': isMenuOpen }"
+        aria-label="Menu"
+      >
+        <span class="hamburger__container" tabindex="-1">
+          <span class="hamburger__bars"></span>
+        </span>
       </button>
 
-      <!-- Navigation Links -->
-      <div
-        :class="{ hidden: !isMenuOpen, flex: isMenuOpen }"
-        class="flex-col lg:flex lg:flex-row lg:items-center lg:w-auto w-full"
-        id="nav-content"
-      >
-        <ul class="flex flex-wrap flex-col lg:flex-row mt-2 text-center">
-          <li class="lg:mb-0 mb-2">
-            <router-link class="px-2 text-white" :to="{ name: 'about' }">O aplikacji</router-link>
-          </li>
+      <ul :class="{ 'menu-open': isMenuOpen }" class="header__list">
+        <li class="header__item">
+          <router-link :to="{ name: 'about' }" class="header__link">O aplikacji</router-link>
+        </li>
 
-          <li v-if="!userStore.userLoggedIn" class="lg:mb-0 mb-2">
-            <a class="px-2 text-white" href="#" @click.prevent="toggleAuthModal">Zaloguj się</a>
-          </li>
+        <li v-if="!userStore.userLoggedIn" class="header__item header__item--mb">
+          <a href="#" @click.prevent="toggleAuthModal" class="header__link">Zaloguj się</a>
+        </li>
 
-          <li v-else class="lg:mb-0 mb-2">
-            <a class="px-2 text-white" href="#" @click.prevent="signOut">Wyloguj</a>
-          </li>
-        </ul>
-      </div>
+        <li v-else class="header__item header__item--mb">
+          <a href="#" @click.prevent="signOut" class="header__link">Wyloguj</a>
+        </li>
+      </ul>
     </nav>
     <teleport to="body">
       <auth-modal></auth-modal>
@@ -83,112 +83,136 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
-header {
+<style scoped lang="scss">
+.header {
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-h1 {
-  margin: 0;
-}
-
-h1 a {
-  color: white;
-  margin: 0;
-}
-header nav {
-  width: 90%;
-  margin: auto;
-
-  justify-content: space-between;
-  align-items: center;
-}
-
-header ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
-li {
-  margin: 0.5rem;
-}
-
-@media screen and (min-width: 768px) {
-  header ul {
-    flex-direction: row;
-  }
-}
-
-#nav-content {
-  transition: height 0.3s ease;
-}
-
-@media (max-width: 767px) {
-  #nav-content.flex {
-    align-items: center;
-    width: 100%;
-    height: auto;
-  }
-}
-
-.hamburger {
-  cursor: pointer;
   position: relative;
-  width: 65px;
-  height: 45px;
-}
-@media (min-width: 768px) {
-  .hamburger {
+  background-color: $primary-color;
+  &__nav {
+    position: relative;
+    width: 90%;
+    margin: auto;
+    padding: 10px 0;
+    @include flex(wrap, space-between, center);
+  }
+
+  &__title {
+    display: flex;
+    width: 15%;
+    @media screen and (max-width: 768px) {
+      width: 50%;
+    }
+    a {
+      color: white;
+      margin: 0;
+    }
+  }
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 15px 0 0;
+    width: 80%;
+    @include flex(wrap, flex-end, center);
     display: none;
+
+    @media screen and (min-width: 768px) {
+      display: flex;
+    }
   }
-}
 
-.hamburger-box,
-.hamburger-box::before,
-.hamburger-box::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background-color: white;
-  transition: all 0.3s ease;
-}
+  &__list.menu-open {
+    display: flex;
+  }
 
-.hamburger-box {
-  position: relative;
-  top: 9px;
-}
+  &__item {
+    color: $color-white;
+    padding: 5px 10px 10px;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
+  }
 
-.hamburger-box::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-}
+  @media screen and (max-width: 768px) {
+    .hamburger {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background-color: transparent;
+      cursor: pointer;
 
-.hamburger-box::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-}
+      &:focus {
+        & > .hamburger__container {
+          box-shadow: 0 0 2px 2px #51a7e8;
+        }
+      }
 
-.hamburger.active .hamburger-box {
-  background-color: transparent;
-}
+      &,
+      &__container {
+        &:focus {
+          outline: none;
+        }
+      }
 
-.hamburger.active .hamburger-box::before {
-  transform: rotate(45deg);
-  top: 0;
-}
+      &__container {
+        display: flex;
+        align-items: center;
+        position: relative;
+        width: 35px;
+        height: 30px;
+      }
 
-.hamburger.active .hamburger-box::after {
-  transform: rotate(-45deg);
-  top: 0;
+      &__bars {
+        position: absolute;
+        width: 35px;
+        height: 2px;
+        background-color: #ffffff;
+        transition: transform 220ms ease-in-out;
+
+        &::before,
+        &::after {
+          display: block;
+          position: absolute;
+          width: 35px;
+          height: 2px;
+          background-color: #ffffff;
+          content: '';
+        }
+
+        &::before {
+          top: -12px;
+          transition:
+            top 100ms 250ms ease-in,
+            transform 220ms ease-in-out;
+        }
+
+        &::after {
+          bottom: -12px;
+          transition:
+            bottom 100ms 250ms ease-in,
+            transform 220ms ease-in-out;
+        }
+      }
+
+      &--active {
+        .hamburger__bars {
+          transform: rotate(225deg);
+          transition: transform 220ms 120ms ease-in-out;
+
+          &::before {
+            top: 0;
+            transition: top 100ms ease-out;
+          }
+
+          &::after {
+            bottom: 0;
+            transform: rotate(-90deg);
+            transition:
+              bottom 100ms ease-out,
+              transform 220ms 120ms ease-in-out;
+          }
+        }
+      }
+    }
+  }
 }
 </style>
