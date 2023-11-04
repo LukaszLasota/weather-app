@@ -87,7 +87,7 @@ export default defineComponent({
 .header {
   width: 100%;
   position: relative;
-  background-color: $primary-color;
+  background-color: $header-color;
   &__nav {
     position: relative;
     width: 90%;

@@ -1,28 +1,22 @@
 <template>
-  <!-- Auth Modal -->
-  <div class="fixed z-10 inset-0 overflow-y-auto" id="modal" :class="hiddenClass">
+
+  <div class="auth-modal" id="modal" :class="hiddenClass">
     <div
-      class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center block sm:p-0"
+      class="auth-modal__center"
     >
-      <div class="fixed inset-0 transition-opacity" @click="toggleModalVisibility">
-        <div class="absolute inset-0 bg-gray-800 opacity-75"></div>
+      <div class="auth-modal__background" @click="toggleModalVisibility">
+        <div class="auth-modal__background---position"></div>
       </div>
 
-      <!-- This element is to trick the browser into centering the modal contents. -->
-      <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
-
       <div
-        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle w-full md:max-w-lg"
+        class="auth-modal__main"
         @click.stop
       >
-        <!-- Add margin if you want to see some of the overlay behind the modal-->
-        <div class="py-4 text-left px-6">
-          <!--Title-->
-          <div class="flex justify-between items-center pb-4">
-            <p class="text-2xl font-bold">Twoje konto</p>
+          <div class="auth-modal__main--header ">
+            <p class="auth-modal__main--title">Twoje konto</p>
             <!-- Modal Close Button -->
             <div
-              class="modal-close cursor-pointer z-50 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:border-blue-800 focus:ring focus:ring-blue-200"
+              class="auth-modal__main--button modal-close  hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:border-blue-800 focus:ring focus:ring-blue-200"
               @click="toggleModalVisibility"
             >
               Zamknij
@@ -40,7 +34,6 @@
             </li>
           </ul>
           <login-form></login-form>
-        </div>
       </div>
     </div>
   </div>
@@ -73,12 +66,60 @@ export default {
     }
   },
   mounted() {
-    // Dodajemy globalny nasłuchiwacz zdarzeń, gdy komponent jest montowany
     window.addEventListener('keydown', this.handleKeydown)
   },
   beforeUnmount() {
-    // Usuwamy nasłuchiwacz zdarzeń, gdy komponent jest niszczony, aby uniknąć wycieków pamięci
     window.removeEventListener('keydown', this.handleKeydown)
   }
 }
 </script>
+<style scoped lang="scss">
+.auth-modal{
+  @include position(fixed, 0, 0, 0, 0);
+  z-index: 10;
+  overflow-y: auto;
+  &__center{
+    @include flex(wrap, center, center);
+    min-height: 100vh
+  }
+
+  &__background{
+    @include position(fixed, 0, 0, 0, 0);
+    transition: opacity 0.2s ease-in-out;
+    &---position{
+      @include position(absolute, 0, 0, 0, 0);
+      background-color: rgba(31, 29, 29, 0.3);
+     
+    }
+  }
+  &__main{
+    background-color: $color-white;
+    border-radius: 2%;
+    text-align: left;
+    overflow: hidden;
+    transition: all;
+    width: 50%;
+    z-index: 10;
+    padding: 3% 2%;
+    &--header{
+      @include flex(wrap, space-between, center);
+      padding-bottom: 5%;      
+    }
+    &--title{
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    &--button{
+        cursor: pointer;
+        z-index: 50;
+        padding: 10px 20px;
+        background-color: rgb(0, 112, 204);
+        color: $color-white;
+        border-radius: 2%;
+    }
+    
+  }
+
+}
+  
+</style>
