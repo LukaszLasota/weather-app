@@ -12,13 +12,13 @@
       </h1>
 
       <button
-        class="hamburger"
+        class="header__hamburger"
         @click="toggleMenu"
-        :class="{ 'hamburger--active': isMenuOpen }"
+        :class="{ 'header__hamburger--active': isMenuOpen }"
         aria-label="Menu"
       >
-        <span class="hamburger__container" tabindex="-1">
-          <span class="hamburger__bars"></span>
+        <span class="header__hamburger--container" tabindex="-1">
+          <span class="header__hamburger--bars"></span>
         </span>
       </button>
 
@@ -92,7 +92,7 @@ export default defineComponent({
     position: relative;
     width: 90%;
     margin: auto;
-    padding: 10px 0;
+    padding: 15px 0;
     @include flex(wrap, space-between, center);
   }
 
@@ -112,11 +112,13 @@ export default defineComponent({
     margin: 0;
     padding: 15px 0 0;
     width: 80%;
+    transition: all 1s ease-in-out;
     @include flex(wrap, flex-end, center);
-    display: none;
+    display: flex;
 
-    @media screen and (min-width: 768px) {
-      display: flex;
+    @media screen and (max-width: 768px) {
+      
+      display: none;
     }
   }
 
@@ -133,86 +135,86 @@ export default defineComponent({
   }
 
   @media screen and (max-width: 768px) {
-    .hamburger {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      background-color: transparent;
-      cursor: pointer;
+    &__hamburger {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
 
+    &:focus {
+      & > .header__hamburger-container {
+        box-shadow: 0 0 2px 2px #51a7e8;
+      }
+    }
+
+    &,
+    &--container { 
       &:focus {
-        & > .hamburger__container {
-          box-shadow: 0 0 2px 2px #51a7e8;
-        }
+        outline: none;
       }
+    }
 
-      &,
-      &__container {
-        &:focus {
-          outline: none;
-        }
-      }
+    &--container { 
+      display: flex;
+      align-items: center;
+      position: relative;
+      width: 35px;
+      height: 30px;
+    }
 
-      &__container {
-        display: flex;
-        align-items: center;
-        position: relative;
-        width: 35px;
-        height: 30px;
-      }
+    &--bars {
+      position: absolute;
+      width: 35px;
+      height: 2px;
+      background-color: #ffffff;
+      transition: transform 220ms ease-in-out;
 
-      &__bars {
+      &::before,
+      &::after {
+        display: block;
         position: absolute;
         width: 35px;
         height: 2px;
         background-color: #ffffff;
-        transition: transform 220ms ease-in-out;
-
-        &::before,
-        &::after {
-          display: block;
-          position: absolute;
-          width: 35px;
-          height: 2px;
-          background-color: #ffffff;
-          content: '';
-        }
-
-        &::before {
-          top: -12px;
-          transition:
-            top 100ms 250ms ease-in,
-            transform 220ms ease-in-out;
-        }
-
-        &::after {
-          bottom: -12px;
-          transition:
-            bottom 100ms 250ms ease-in,
-            transform 220ms ease-in-out;
-        }
+        content: '';
       }
 
-      &--active {
-        .hamburger__bars {
-          transform: rotate(225deg);
-          transition: transform 220ms 120ms ease-in-out;
+      &::before {
+        top: -12px;
+        transition:
+          top 100ms 250ms ease-in,
+          transform 220ms ease-in-out;
+      }
 
-          &::before {
-            top: 0;
-            transition: top 100ms ease-out;
-          }
-
-          &::after {
-            bottom: 0;
-            transform: rotate(-90deg);
-            transition:
-              bottom 100ms ease-out,
-              transform 220ms 120ms ease-in-out;
-          }
-        }
+      &::after {
+        bottom: -12px;
+        transition:
+          bottom 100ms 250ms ease-in,
+          transform 220ms ease-in-out;
       }
     }
+  }
+
+  &__hamburger--active {
+    .header__hamburger--bars {
+      transform: rotate(225deg);
+      transition: transform 220ms 120ms ease-in-out;
+
+      &::before {
+        top: 0;
+        transition: top 100ms ease-out;
+      }
+
+      &::after {
+        bottom: 0;
+        transform: rotate(-90deg);
+        transition:
+          bottom 100ms ease-out,
+          transform 220ms 120ms ease-in-out;
+      }
+    }
+  }
   }
 }
 </style>
