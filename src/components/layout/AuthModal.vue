@@ -19,15 +19,14 @@
 
         <ul class="auth-modal__main-tabs">
           <li class="auth-modal__main-tab">
-            <a class="auth-modal__main-tab-link auth-modal__main-tab-link--active" href="#"
-              >Logowanie</a
-            >
+            <a class="auth-modal__main-tab-link" :class="{ 'auth-modal__main-tab-link--active': activeTab === 'login' }" href="#" @click.prevent="switchTabs('login')">Logowanie</a>
           </li>
           <li class="auth-modal__main-tab">
-            <a class="auth-modal__main-tab-link" href="#">Rejstracja</a>
+            <a class="auth-modal__main-tab-link" :class="{ 'auth-modal__main-tab-link--active': activeTab === 'register' }" href="#" @click.prevent="switchTabs('register')">Rejestracja</a>
           </li>
         </ul>
-        <login-form></login-form>
+        <login-form v-if="activeTab === 'login'"></login-form>
+        <register-form v-else></register-form>
       </div>
     </div>
   </div>
@@ -36,10 +35,16 @@
 <script lang="ts">
 import { useModalStore } from '@/stores/modal/index'
 import LoginForm from './LoginForm.vue'
+type TabName = 'login' | 'register';
 export default {
   name: 'AuthModal',
   components: {
     LoginForm
+  },
+  data() {
+    return {
+      activeTab: 'login' as TabName,
+    }
   },
   computed: {
     hiddenClass() {
@@ -50,6 +55,9 @@ export default {
     }
   },
   methods: {
+    switchTabs(tabName: TabName) {
+      this.activeTab = tabName;
+    },
     toggleModalVisibility() {
       this.modalStore.toggle()
     },
@@ -122,7 +130,8 @@ export default {
     }
     &-tabs {
       @include flex(wrap, center, center);
-      margin-bottom: 4%;
+      margin: 0 auto 4%;
+      width: 70%;
     }
     &-tab {
       @include flex(wrap, center, center);
