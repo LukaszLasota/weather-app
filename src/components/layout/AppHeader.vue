@@ -99,7 +99,7 @@ export default defineComponent({
   &__title {
     display: flex;
     width: 15%;
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $medium) {
       width: 50%;
     }
     a {
@@ -116,8 +116,7 @@ export default defineComponent({
     @include flex(wrap, flex-end, center);
     display: flex;
 
-    @media screen and (max-width: 768px) {
-      
+    @media screen and (max-width: $medium) {
       display: none;
     }
   }
@@ -129,92 +128,92 @@ export default defineComponent({
   &__item {
     color: $color-white;
     padding: 5px 10px 10px;
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: $medium) {
       width: 100%;
     }
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: $medium) {
     &__hamburger {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    background-color: transparent;
-    cursor: pointer;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background-color: transparent;
+      cursor: pointer;
 
-    &:focus {
-      & > .header__hamburger-container {
-        box-shadow: 0 0 2px 2px #51a7e8;
-      }
-    }
-
-    &,
-    &--container { 
       &:focus {
-        outline: none;
+        & > .header__hamburger-container {
+          box-shadow: 0 0 2px 2px #51a7e8;
+        }
       }
-    }
 
-    &--container { 
-      display: flex;
-      align-items: center;
-      position: relative;
-      width: 35px;
-      height: 30px;
-    }
+      &,
+      &--container {
+        &:focus {
+          outline: none;
+        }
+      }
 
-    &--bars {
-      position: absolute;
-      width: 35px;
-      height: 2px;
-      background-color: #ffffff;
-      transition: transform 220ms ease-in-out;
+      &--container {
+        display: flex;
+        align-items: center;
+        position: relative;
+        width: 35px;
+        height: 30px;
+      }
 
-      &::before,
-      &::after {
-        display: block;
+      &--bars {
         position: absolute;
         width: 35px;
         height: 2px;
         background-color: #ffffff;
-        content: '';
-      }
+        transition: transform 220ms ease-in-out;
 
-      &::before {
-        top: -12px;
-        transition:
-          top 100ms 250ms ease-in,
-          transform 220ms ease-in-out;
-      }
+        &::before,
+        &::after {
+          display: block;
+          position: absolute;
+          width: 35px;
+          height: 2px;
+          background-color: #ffffff;
+          content: '';
+        }
 
-      &::after {
-        bottom: -12px;
-        transition:
-          bottom 100ms 250ms ease-in,
-          transform 220ms ease-in-out;
-      }
-    }
-  }
+        &::before {
+          top: -12px;
+          transition:
+            top 100ms 250ms ease-in,
+            transform 220ms ease-in-out;
+        }
 
-  &__hamburger--active {
-    .header__hamburger--bars {
-      transform: rotate(225deg);
-      transition: transform 220ms 120ms ease-in-out;
-
-      &::before {
-        top: 0;
-        transition: top 100ms ease-out;
-      }
-
-      &::after {
-        bottom: 0;
-        transform: rotate(-90deg);
-        transition:
-          bottom 100ms ease-out,
-          transform 220ms 120ms ease-in-out;
+        &::after {
+          bottom: -12px;
+          transition:
+            bottom 100ms 250ms ease-in,
+            transform 220ms ease-in-out;
+        }
       }
     }
-  }
+
+    &__hamburger--active {
+      .header__hamburger--bars {
+        transform: rotate(225deg);
+        transition: transform 220ms 120ms ease-in-out;
+
+        &::before {
+          top: 0;
+          transition: top 100ms ease-out;
+        }
+
+        &::after {
+          bottom: 0;
+          transform: rotate(-90deg);
+          transition:
+            bottom 100ms ease-out,
+            transform 220ms 120ms ease-in-out;
+        }
+      }
+    }
   }
 }
 </style>
